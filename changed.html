@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trumarx | Intellectual Property Attorneys</title>
+    <meta name="description" content="Premier legal counsel for Trademarks, Patents, and Copyrights. Safeguarding innovation in Bangalore and beyond.">
+    
+    <!-- Tailwind CSS & FontAwesome -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            navy: '#1D1D1F',      /* Apple Dark Grey/Black */
+                            dark: '#000000',      /* Pure Black */
+                            light: '#F5F5F7',     /* Apple Off-White */
+                            accent: '#0071E3',    /* Apple Blue */
+                            accentHover: '#0077ED',
+                            textLight: '#F5F5F7',
+                            textDark: '#1D1D1F',
+                            logoGrey: '#86868b',  /* Apple-style grey text */
+                            logoBlack: '#000000',
+                        }
+                    },
+                    fontFamily: {
+                        sans: [
+                            '-apple-system', 
+                            'BlinkMacSystemFont', 
+                            '"San Francisco"', 
+                            '"Helvetica Neue"', 
+                            'Helvetica', 
+                            'Arial', 
+                            'sans-serif'
+                        ],
+                        serif: ['"Merriweather"', 'serif'],
+                    },
+                    boxShadow: {
+                        'legal': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Theme Logic -->
+    <script>
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const checkbox = document.getElementById('theme-toggle');
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                if(checkbox) checkbox.checked = false;
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                if(checkbox) checkbox.checked = true;
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const checkbox = document.getElementById('theme-toggle');
+            if(checkbox && document.documentElement.classList.contains('dark')) {
+                checkbox.checked = true;
+            }
+        });
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,400&family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Apple-style Navigation */
+        .legal-nav {
+            background: rgba(251, 251, 253, 0.8); /* Apple Frost Light */
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .dark .legal-nav {
+            background: rgba(29, 29, 31, 0.8); /* Apple Frost Dark */
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* Cinematic Scroll Classes */
+        .cinematic-layer {
+            will-change: transform, opacity;
+            transform-origin: center center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            pointer-events: none; 
+            transition: none !important;
+        }
+        
+        .cinematic-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transform-origin: center center;
+            transition: none !important;
+        }
+
+        /* Large Intro Text */
+        .mega-text {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 12vw; 
+            line-height: 0.9;
+            text-align: center;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: #ffffff;
+            white-space: nowrap;
+        }
+
+        /* Modal Transitions */
+        .modal { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+        .modal.active { opacity: 1; pointer-events: auto; }
+        .modal-content { transform: scale(0.95) translateY(20px); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .modal.active .modal-content { transform: scale(1) translateY(0); }
+        
+        /* Toggle Switch Styles */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #0071E3;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #0071E3;
+        }
+        .toggle-checkbox:checked + .toggle-label:before {
+            transform: translateX(100%);
+        }
+        
+        /* General Smooth Transitions */
+        body, div, nav, section, footer, button, a, span, i, h1, h2, h3, p, input, select, label {
+            transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+        }
+    </style>
+</head>
+<body class="font-sans text-brand-textDark dark:text-brand-textLight bg-white dark:bg-black relative overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 legal-nav">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <a href="#" class="flex flex-col leading-none group hover:opacity-80 transition-opacity">
+                    <div class="text-3xl tracking-tight">
+                        <span class="font-bold text-brand-logoGrey">tru</span><span class="font-bold text-brand-logoBlack dark:text-white">marx</span>
+                        <span class="align-top text-[10px] font-bold border-2 border-brand-logoBlack dark:border-white rounded-full px-[2px] py-[0px] ml-0.5 relative top-1 text-brand-logoBlack dark:text-white">®</span>
+                    </div>
+                    <span class="text-[10px] text-brand-logoGrey tracking-wide mt-1 font-medium">brand legal management</span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-8 text-[12px] font-medium tracking-normal">
+                    <a href="#home" class="text-gray-600 dark:text-gray-300 hover:text-brand-accent transition-colors">Home</a>
+                    <a href="#about" class="text-gray-600 dark:text-gray-300 hover:text-brand-accent transition-colors">Firm</a>
+                    <a href="#services" class="text-gray-600 dark:text-gray-300 hover:text-brand-accent transition-colors">Expertise</a>
+                    
+                    <div class="h-4 w-px bg-gray-300 dark:bg-gray-700"></div>
+
+                    <!-- Theme Toggle Switch with Icons -->
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-sun text-yellow-500 text-xs"></i>
+                        <div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in">
+                            <input type="checkbox" name="toggle" id="theme-toggle" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300 checked:border-brand-accent transition-all duration-300 z-10" onclick="toggleTheme()"/>
+                            <label for="theme-toggle" class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 dark:bg-gray-700 cursor-pointer transition-colors duration-300"></label>
+                        </div>
+                        <i class="fas fa-moon text-gray-400 dark:text-white text-xs"></i>
+                    </div>
+
+                    <!-- Button (Apple Blue) -->
+                    <button onclick="openModal()" class="px-4 py-2 rounded-full bg-brand-accent text-white font-medium text-[12px] hover:bg-brand-accentHover transition-all shadow-sm">
+                        Consultation
+                    </button>
+                </div>
+
+                <div class="flex items-center gap-4 md:hidden">
+                    <button id="mobile-menu-btn" class="text-brand-navy dark:text-white text-xl">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden absolute w-full legal-nav border-t border-gray-200 dark:border-gray-700">
+            <div class="flex flex-col p-6 space-y-4 text-sm font-medium">
+                <a href="#home" class="text-brand-navy dark:text-white">Home</a>
+                <a href="#about" class="text-gray-600 dark:text-gray-400">The Firm</a>
+                <a href="#services" class="text-gray-600 dark:text-gray-400">Practice Areas</a>
+                <button onclick="toggleTheme()" class="text-left text-gray-600 dark:text-gray-400">Toggle Theme</button>
+                <button onclick="openModal()" class="w-full text-center px-5 py-3 rounded-full bg-brand-accent text-white font-bold shadow-lg">Book Consultation</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative pt-24 pb-32 overflow-hidden bg-white dark:bg-brand-dark min-h-screen flex items-center">
+        
+        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center relative z-10">
+            <!-- Left: Content -->
+            <div class="text-center lg:text-left">
+                <div class="inline-block mb-6">
+                    <span class="text-brand-accent font-semibold tracking-wide text-xs uppercase">Est. 2014 • Founded by Pradeesh PL</span>
+                </div>
+
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 text-brand-textDark dark:text-white leading-tight">
+                    Intellectual Property <br>
+                    <span class="text-brand-accent">Rights & Protection.</span>
+                </h1>
+
+                <p class="text-lg text-gray-500 dark:text-gray-400 mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+                    Specializing in Patents, Trademarks, Designs, Copyrights, and Domain Names. We handle international filing and prosecution for diverse industries, from IT to Entertainment.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                    <button onclick="openModal()" class="px-8 py-4 rounded-full bg-brand-accent text-white font-medium text-sm hover:bg-brand-accentHover transition-all shadow-lg hover:shadow-brand-accent/30">
+                        Schedule Consultation
+                    </button>
+                    <a href="#services" class="px-8 py-4 rounded-full text-brand-accent font-medium text-sm hover:bg-brand-light dark:hover:bg-white/10 transition-all flex items-center gap-2 group">
+                        Practice Areas <i class="fas fa-chevron-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+                
+                <div class="mt-12 flex items-center justify-center lg:justify-start gap-12 text-gray-400">
+                    <span class="text-xs uppercase tracking-widest font-semibold text-gray-400 dark:text-gray-600">Affiliations</span>
+                    <div class="flex gap-6 font-semibold text-brand-navy dark:text-white opacity-80 text-sm">
+                        <span>WIPO</span><span>INTA</span><span>AIPPI</span><span>FICCI</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Professional Visual (Global Network) -->
+            <div class="relative hidden lg:block">
+                <!-- Main Card: Abstract Global Network -->
+                <div class="relative bg-brand-light dark:bg-[#151516] p-0 shadow-2xl border border-gray-100 dark:border-white/10 rounded-2xl h-full min-h-[400px] overflow-hidden flex items-center justify-center">
+                    
+                    <!-- Abstract Globe/Network SVG -->
+                    <svg viewBox="0 0 400 400" class="w-full h-full absolute inset-0 opacity-20 dark:opacity-10 pointer-events-none">
+                        <circle cx="200" cy="200" r="150" fill="none" stroke="currentColor" stroke-width="1" class="text-brand-accent" />
+                        <circle cx="200" cy="200" r="100" fill="none" stroke="currentColor" stroke-width="1" class="text-brand-accent" />
+                        <circle cx="200" cy="200" r="50" fill="none" stroke="currentColor" stroke-width="1" class="text-brand-accent" />
+                        <line x1="50" y1="200" x2="350" y2="200" stroke="currentColor" stroke-width="0.5" class="text-brand-accent" />
+                        <line x1="200" y1="50" x2="200" y2="350" stroke="currentColor" stroke-width="0.5" class="text-brand-accent" />
+                    </svg>
+
+                    <!-- Connecting Nodes Animation -->
+                    <div class="absolute inset-0">
+                        <div class="absolute top-1/3 left-1/4 w-2 h-2 bg-brand-accent rounded-full animate-pulse"></div>
+                        <div class="absolute top-1/2 left-2/3 w-2 h-2 bg-brand-navy dark:bg-white rounded-full animate-pulse delay-75"></div>
+                        <div class="absolute bottom-1/3 right-1/4 w-2 h-2 bg-brand-accent rounded-full animate-pulse delay-150"></div>
+                        
+                        <!-- Connecting Lines (CSS only visuals) -->
+                        <div class="absolute top-1/3 left-1/4 w-40 h-px bg-gradient-to-r from-brand-accent to-transparent transform rotate-12 opacity-50"></div>
+                        <div class="absolute bottom-1/3 right-1/4 w-32 h-px bg-gradient-to-l from-brand-accent to-transparent transform -rotate-12 opacity-50"></div>
+                    </div>
+
+                    <div class="relative z-10 text-center p-8 bg-white/80 dark:bg-black/60 backdrop-blur-md border border-white/20 dark:border-white/10 rounded-xl shadow-lg">
+                        <h3 class="font-bold text-2xl text-brand-navy dark:text-white mb-2">Global Protection</h3>
+                        <p class="text-xs text-gray-500 dark:text-gray-300 font-medium tracking-wide uppercase">Securing Assets Worldwide</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- IMMERSIVE SCROLL SECTION -->
+    <section id="immersive-section" class="relative h-[800vh] bg-black">
+        <div class="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
+            
+            <!-- 1. INTRO TEXT LAYER -->
+            <div id="layer-intro" class="cinematic-layer z-50 flex-col text-center">
+                <p class="text-brand-accent font-bold tracking-[0.2em] text-sm uppercase mb-8">Trusted By Legends</p>
+                <div class="mega-text">
+                    LEGENDS<br>PROTECTED
+                </div>
+                <!-- Bouncy Arrow -->
+                <div class="mt-8 animate-bounce text-brand-accent/80">
+                    <i class="fas fa-chevron-down text-3xl"></i>
+                </div>
+            </div>
+
+            <!-- 2. SALAAR LAYER -->
+            <div id="layer-salaar" class="cinematic-layer z-40 opacity-0 scale-0">
+                <img src="Salaar.jpg" class="cinematic-image" alt="Salaar Poster">
+            </div>
+
+            <!-- 3. KANTARA LAYER -->
+            <div id="layer-kantara" class="cinematic-layer z-30 opacity-0 scale-0">
+                <img src="Kantara.png" class="cinematic-image" alt="Kantara Poster">
+            </div>
+
+            <!-- 4. KGF LAYER -->
+            <div id="layer-kgf" class="cinematic-layer z-20 opacity-0 scale-0">
+                <img src="KGF.png" class="cinematic-image" alt="KGF Chapter 2 Poster">
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Services Grid (Practice Areas) -->
+    <section id="services" class="py-24 relative bg-brand-light dark:bg-[#111111]">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20">
+                <div class="inline-block mb-4">
+                    <span class="text-gray-500 dark:text-brand-accent font-bold tracking-wide text-xs uppercase">Our Expertise</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold text-brand-navy dark:text-white mb-4 tracking-tight">Comprehensive IP Strategy</h2>
+                <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-light">
+                    Tailored legal solutions to safeguard your creative and industrial assets.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Service Cards -->
+                <div class="bg-white dark:bg-[#1C1C1E] p-8 rounded-2xl shadow-legal hover:-translate-y-1 transition-transform duration-300">
+                    <div class="text-brand-accent mb-6 text-3xl"><i class="fas fa-registered"></i></div>
+                    <h3 class="font-bold text-xl mb-3 text-brand-navy dark:text-white">Trademark</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                        Comprehensive brand identity protection, clearance searches, and prosecution.
+                    </p>
+                </div>
+
+                <div class="bg-white dark:bg-[#1C1C1E] p-8 rounded-2xl shadow-legal hover:-translate-y-1 transition-transform duration-300">
+                    <div class="text-brand-accent mb-6 text-3xl"><i class="fas fa-lightbulb"></i></div>
+                    <h3 class="font-bold text-xl mb-3 text-brand-navy dark:text-white">Patent</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                        Securing inventions through rigorous filing, drafting, and defense strategies.
+                    </p>
+                </div>
+
+                <div class="bg-white dark:bg-[#1C1C1E] p-8 rounded-2xl shadow-legal hover:-translate-y-1 transition-transform duration-300">
+                    <div class="text-brand-accent mb-6 text-3xl"><i class="fas fa-copyright"></i></div>
+                    <h3 class="font-bold text-xl mb-3 text-brand-navy dark:text-white">Copyright</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                        Protection for literary, artistic, and musical works across global jurisdictions.
+                    </p>
+                </div>
+
+                <div class="bg-white dark:bg-[#1C1C1E] p-8 rounded-2xl shadow-legal hover:-translate-y-1 transition-transform duration-300">
+                    <div class="text-brand-accent mb-6 text-3xl"><i class="fas fa-drafting-compass"></i></div>
+                    <h3 class="font-bold text-xl mb-3 text-brand-navy dark:text-white">Design</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                        Safeguarding aesthetic designs and industrial patterns from infringement.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Trumarx Advantage -->
+    <section id="advantage" class="py-20 bg-white dark:bg-black border-t border-gray-100 dark:border-white/10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="text-center md:text-left group">
+                    <div class="w-12 h-12 rounded-full bg-brand-light dark:bg-white/10 flex items-center justify-center mb-6 text-brand-accent text-xl group-hover:bg-brand-accent group-hover:text-white transition-colors duration-300">
+                        <i class="fas fa-chess-knight"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-brand-navy dark:text-white mb-3">Strategic Prosecution</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">We don't just file; we strategize. Our team anticipates objections and crafts robust applications to ensure maximum enforceability.</p>
+                </div>
+                <div class="text-center md:text-left group">
+                    <div class="w-12 h-12 rounded-full bg-brand-light dark:bg-white/10 flex items-center justify-center mb-6 text-brand-accent text-xl group-hover:bg-brand-accent group-hover:text-white transition-colors duration-300">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-brand-navy dark:text-white mb-3">Global Network</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Direct access to IP offices in 50+ jurisdictions. We manage your international portfolio through a single point of contact.</p>
+                </div>
+                <div class="text-center md:text-left group">
+                    <div class="w-12 h-12 rounded-full bg-brand-light dark:bg-white/10 flex items-center justify-center mb-6 text-brand-accent text-xl group-hover:bg-brand-accent group-hover:text-white transition-colors duration-300">
+                        <i class="fas fa-stopwatch"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-brand-navy dark:text-white mb-3">24/7 Monitoring</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">Proactive surveillance of your assets. We detect and address infringements before they impact your brand value.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founder's Spotlight -->
+    <section class="py-20 bg-brand-light dark:bg-[#1C1C1E]">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-2xl md:text-3xl font-bold text-brand-navy dark:text-white leading-snug mb-8">
+                "Intellectual Property is not just a legal right; it is the currency of the modern economy. We are dedicated to ensuring your currency never devalues."
+            </h2>
+            <div class="flex items-center justify-center gap-4">
+                <div class="text-left">
+                    <p class="font-bold text-brand-accent uppercase tracking-widest text-xs">Pradeesh PL</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">Founder & Managing Attorney</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Client Voices -->
+    <section class="py-24 bg-white dark:bg-black border-t border-gray-100 dark:border-white/10">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-brand-navy dark:text-white mb-12 text-center">Client Voices</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="p-8 bg-brand-light dark:bg-[#1C1C1E] rounded-2xl">
+                    <p class="text-gray-600 dark:text-gray-300 mb-6 italic">"Trumarx handled our complex international trademark portfolio with exceptional diligence. Their strategic advice saved us months of potential litigation."</p>
+                    <p class="font-bold text-brand-navy dark:text-white text-sm uppercase">Tech Innovators Inc.</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">Bangalore</p>
+                </div>
+                <div class="p-8 bg-brand-light dark:bg-[#1C1C1E] rounded-2xl">
+                    <p class="text-gray-600 dark:text-gray-300 mb-6 italic">"The team's understanding of IP rights in the entertainment sector is unmatched. They are true partners in protecting our creative assets."</p>
+                    <p class="font-bold text-brand-navy dark:text-white text-sm uppercase">Leading Production House</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">Mumbai</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-24 bg-brand-light dark:bg-[#111111]">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-brand-navy dark:text-white mb-10 text-center">Frequently Asked Questions</h2>
+            <div class="space-y-4">
+                <details class="group bg-white dark:bg-[#1C1C1E] p-6 rounded-2xl shadow-sm cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold text-brand-navy dark:text-white">
+                        How long does trademark registration take in India?
+                        <span class="transform group-open:rotate-180 transition-transform"><i class="fas fa-chevron-down text-brand-accent"></i></span>
+                    </summary>
+                    <p class="text-gray-600 dark:text-gray-400 mt-4 text-sm leading-relaxed">
+                        Typically, the process takes 18-24 months if there are no objections. Trumarx expedites filing and promptly handles examination reports to minimize delays.
+                    </p>
+                </details>
+                <details class="group bg-white dark:bg-[#1C1C1E] p-6 rounded-2xl shadow-sm cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold text-brand-navy dark:text-white">
+                        Do you handle international patent filing?
+                        <span class="transform group-open:rotate-180 transition-transform"><i class="fas fa-chevron-down text-brand-accent"></i></span>
+                    </summary>
+                    <p class="text-gray-600 dark:text-gray-400 mt-4 text-sm leading-relaxed">
+                        Yes. We specialize in PCT (Patent Cooperation Treaty) applications, allowing you to seek patent protection in over 150 countries simultaneously.
+                    </p>
+                </details>
+                <details class="group bg-white dark:bg-[#1C1C1E] p-6 rounded-2xl shadow-sm cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold text-brand-navy dark:text-white">
+                        What industries do you serve?
+                        <span class="transform group-open:rotate-180 transition-transform"><i class="fas fa-chevron-down text-brand-accent"></i></span>
+                    </summary>
+                    <p class="text-gray-600 dark:text-gray-400 mt-4 text-sm leading-relaxed">
+                        We serve a diverse range of industries including Information Technology, Entertainment & Media, Manufacturing, Life Sciences, and Retail.
+                    </p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-16 border-t border-gray-200 dark:border-white/10 bg-white dark:bg-black">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <!-- Footer Logo -->
+            <a href="#" class="inline-flex items-center gap-1 group hover:opacity-80 transition-opacity mb-6">
+                <div class="text-2xl tracking-tight">
+                    <span class="font-bold text-brand-logoGrey">tru</span><span class="font-bold text-brand-logoBlack dark:text-white">marx</span>
+                    <span class="align-top text-[10px] font-bold border-2 border-brand-logoBlack dark:border-white rounded-full px-[2px] py-[0px] ml-0.5 relative top-1 text-brand-logoBlack dark:text-white">®</span>
+                </div>
+            </a>
+            <div class="flex justify-center gap-8 mb-8 text-sm font-medium text-gray-600 dark:text-gray-400">
+                <a href="#" class="hover:text-brand-accent transition-colors">Home</a>
+                <a href="#" class="hover:text-brand-accent transition-colors">Practice Areas</a>
+                <a href="#" class="hover:text-brand-accent transition-colors">Our Team</a>
+                <a href="#" class="hover:text-brand-accent transition-colors">Contact</a>
+            </div>
+            <p class="text-gray-400 text-xs">&copy; 2025 Trumarx IP Solutions. All Rights Reserved. Attorney Advertising.</p>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="modal-overlay" class="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm hidden modal">
+        <div class="bg-white dark:bg-[#1C1C1E] rounded-2xl shadow-2xl w-full max-w-md mx-4 p-8 relative">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-brand-navy dark:hover:text-white transition-colors"><i class="fas fa-times"></i></button>
+            <h3 class="text-2xl font-bold mb-2 text-brand-navy dark:text-white">Request Consultation</h3>
+            <p class="text-sm text-gray-500 mb-6">Speak with a specialized IP attorney.</p>
+            <form onsubmit="event.preventDefault(); alert('Request received. Our legal team will contact you shortly.'); closeModal();">
+                <div class="space-y-4">
+                    <input type="text" placeholder="Full Name" class="w-full p-3 bg-brand-light dark:bg-black border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-white">
+                    <input type="email" placeholder="Email Address" class="w-full p-3 bg-brand-light dark:bg-black border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-brand-accent dark:focus:border-brand-accent dark:text-white">
+                    <button class="w-full py-3 bg-brand-accent text-white font-bold text-sm rounded-full hover:bg-brand-accentHover transition-colors shadow-lg">Submit Request</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts (Scroll & Logic Preserved) -->
+    <script>
+        // Modal Logic
+        const modal = document.getElementById('modal-overlay');
+        function openModal() { modal.classList.remove('hidden'); setTimeout(()=>modal.classList.add('active'),10); }
+        function closeModal() { modal.classList.remove('active'); setTimeout(()=>modal.classList.add('hidden'),300); }
+
+        // CINEMATIC SCROLL LOGIC
+        const section = document.getElementById('immersive-section');
+        const layerIntro = document.getElementById('layer-intro');
+        const layerSalaar = document.getElementById('layer-salaar');
+        const layerKantara = document.getElementById('layer-kantara');
+        const layerKgf = document.getElementById('layer-kgf');
+
+        window.addEventListener('scroll', () => {
+            const rect = section.getBoundingClientRect();
+            const start = rect.top;
+            const height = rect.height;
+            const viewH = window.innerHeight;
+            
+            // Map scroll to 0-1 progress
+            let progress = 0;
+            if (start <= 0) {
+                progress = Math.abs(start) / (height - viewH);
+            }
+            if (progress < 0) progress = 0;
+            if (progress > 1) progress = 1;
+
+            // --- ANIMATION STAGES ---
+            // 0.00 - 0.25: Intro Text (Zoom 1x -> 15x, Fade Out)
+            // 0.25 - 0.50: Salaar (Zoom 0.5x -> 1.2x, Fade Out)
+            // 0.50 - 0.75: Kantara (Zoom 0.5x -> 1.2x, Fade Out)
+            // 0.75 - 1.00: KGF (Zoom 0.5x -> 1.2x, Fade Out)
+
+            // 1. INTRO TEXT (Solid, Moderate Zoom, Fade Out from Start)
+            if (progress < 0.25) {
+                let localP = progress / 0.25; 
+                let scaleVal = 1 + (localP * 14); 
+                layerIntro.style.transform = `scale(${scaleVal})`;
+                let fade = 1 - localP;
+                layerIntro.style.opacity = Math.max(0, fade);
+            } else {
+                layerIntro.style.opacity = 0;
+            }
+
+            // 2. SALAAR (0.25 to 0.50)
+            if (progress > 0.25) {
+                let localP = (progress - 0.25) / 0.25; 
+                let scaleVal = 0.5 + (localP * 0.7); 
+                layerSalaar.style.transform = `scale(${scaleVal})`;
+                layerSalaar.style.zIndex = 40;
+
+                if (scaleVal < 1.0) layerSalaar.style.opacity = 1; 
+                else layerSalaar.style.opacity = 1 - ((scaleVal - 1.0) * 5); 
+
+                if (scaleVal < 0.55) layerSalaar.style.opacity = (scaleVal - 0.5) * 10; 
+            } else {
+                layerSalaar.style.opacity = 0;
+            }
+
+            // 3. KANTARA (0.50 to 0.75)
+            if (progress > 0.50) {
+                let localP = (progress - 0.50) / 0.25;
+                let scaleVal = 0.5 + (localP * 0.7);
+                layerKantara.style.transform = `scale(${scaleVal})`;
+                layerKantara.style.zIndex = 50;
+
+                if (scaleVal < 1.0) layerKantara.style.opacity = 1;
+                else layerKantara.style.opacity = 1 - ((scaleVal - 1.0) * 5);
+
+                if (scaleVal < 0.55) layerKantara.style.opacity = (scaleVal - 0.5) * 10;
+            } else {
+                layerKantara.style.opacity = 0;
+            }
+
+            // 4. KGF (0.75 to 1.00)
+            if (progress > 0.75) {
+                let localP = (progress - 0.75) / 0.25;
+                if(localP > 1) localP = 1;
+                let scaleVal = 0.5 + (localP * 0.7);
+                layerKgf.style.transform = `scale(${scaleVal})`;
+                layerKgf.style.zIndex = 60;
+
+                if (scaleVal < 0.55) layerKgf.style.opacity = (scaleVal - 0.5) * 10;
+                else layerKgf.style.opacity = 1;
+            } else {
+                layerKgf.style.opacity = 0;
+            }
+        });
+    </script>
+</body>
+</html>
